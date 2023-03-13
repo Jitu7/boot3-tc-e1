@@ -12,9 +12,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = ProductController.class)
@@ -34,11 +34,17 @@ class ProductControllerTest {
         var tea = new Product(1L, "Tea", "Tata", BigDecimal.TEN, false);
         given(productService.getAllProducts()).willReturn(List.of(coffee, tea));
 
-        mockMvc.perform(get("/api/products"))
+        String jsonResponse = mockMvc.perform(get("/api/products"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.[0].id").value("1"))
-                .andExpect(jsonPath("$.[0].name").value("Coffee"))
-                .andExpect(jsonPath("$.[1].name").value("Tea"));
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        assertThatJson(jsonResponse).isEqualTo("""
+                [{"id":1,"name":"Coffee","description":"Nescafe","price":10,"disabled":false},
+                {"id":1,"name":"Tea","description":"Tata","price":10,"disabled":false}]
+                 """);
+
 
     }
 }
