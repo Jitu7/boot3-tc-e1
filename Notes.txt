@@ -1,0 +1,2 @@
+docker  exec -it a7b216f /bin/sh
+PGPASSWORD=postgres psql -U postgres -h localhost postgres
