@@ -9,6 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    @Query("select new com.example.boot3testinge1.model.CustomerDTO(c.id, c.name, c.email, c.createdAt) from Customer cU")
+    @Query("select new com.example.boot3testinge1.model.CustomerDTO(c.id, c.name, c.email, c.createdAt) from Customer c")
     Page<CustomerDTO> findCustomers(Pageable pageable);
+
+    @Query("""
+            select new com.example.boot3testinge1.model.CustomerDTO(c.id, c.name, c.email, c.createdAt) from Customer c
+            where lower(c.name) like lower(concat('%', :query, '%'))
+            """)
+    Page<CustomerDTO> searchCustomers(String query, Pageable pageable);
 }
