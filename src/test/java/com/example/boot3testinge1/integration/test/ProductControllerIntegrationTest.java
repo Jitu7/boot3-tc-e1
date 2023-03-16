@@ -1,4 +1,4 @@
-package com.example.boot3testinge1.controller;
+package com.example.boot3testinge1.integration.test;
 
 import com.example.boot3testinge1.initializer.PostgresContainerInitializer;
 import org.junit.jupiter.api.Test;

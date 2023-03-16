@@ -1,2 +1,11 @@
 docker  exec -it a7b216f /bin/sh
 PGPASSWORD=postgres psql -U postgres -h localhost postgres
+
+CI:
+1. Run Tests
+2. Code Quality check (Checkstyle, Sonar)
+3. Deploy to QA
+4. E2E Tests (Selenium)
+5. Load Test / Performance Test (JMeter/Gatling)
+6. Deploy to Prod
+7. Sanity
