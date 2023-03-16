@@ -1,25 +1,31 @@
 package com.example.boot3testinge1.integration.test;
 
 import com.example.boot3testinge1.initializer.PostgresContainerInitializer;
+import com.example.boot3testinge1.model.CreateCustomerRequest;
 import com.example.boot3testinge1.model.Customer;
 import com.example.boot3testinge1.repository.CustomerRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.time.Instant;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.with;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = {PostgresContainerInitializer.class})
@@ -75,6 +81,44 @@ class CustomerControllerIntegrationTest {
                 .body("isLast", equalTo(isLast))
         ;
 
+    }
+
+    @Test
+    @DisplayName("Should create customer successfully")
+    void createCustomerSuccess() throws JsonProcessingException {
+        var request = new CreateCustomerRequest();
+        request.setName("Jeetu");
+        request.setEmail("jeetu@mail.com");
+
+        with()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post("/api/customers")
+                .then()
+                .statusCode(HttpStatus.CREATED.value())
+                .assertThat()
+                .body("id", notNullValue())
+                .body("name", equalTo("Jeetu"))
+                .body("email", equalTo("jeetu@mail.com"))
+                .body("createdAt", notNullValue());
+    }
+
+    @Test
+    @DisplayName("Should not create customer when email is not present")
+    void createCustomerError() throws JsonProcessingException {
+        var request = new CreateCustomerRequest();
+        request.setName("Jeetu");
+
+        with()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post("/api/customers")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .assertThat()
+                .body("message[0]", equalTo("Email should not be empty"));
     }
 
     @Test
