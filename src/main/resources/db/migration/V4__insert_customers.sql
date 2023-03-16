@@ -1,0 +1,11 @@
+insert into customers (name, email, created_at) values ('Jeetu', 'jeetu@mail.com', CURRENT_TIMESTAMP);
+insert into customers (name, email, created_at) values ('Josh', 'josh@mail.com', CURRENT_TIMESTAMP);
+insert into customers (name, email, created_at) values ('Mahadev', 'mahadev@mail.com', CURRENT_TIMESTAMP);
+insert into customers (name, email, created_at) values ('Tarun', 'tarun@mail.com', CURRENT_TIMESTAMP);
+insert into customers (name, email, created_at) values ('Anil', 'anil@mail.com', CURRENT_TIMESTAMP);
+insert into customers (name, email, created_at) values ('Vijay', 'vijay@mail.com', CURRENT_TIMESTAMP);
+insert into customers (name, email, created_at) values ('Suhant', 'suhant@mail.com', CURRENT_TIMESTAMP);
+insert into customers (name, email, created_at) values ('Sameer', 'sameer@mail.com', CURRENT_TIMESTAMP);
+insert into customers (name, email, created_at) values ('Amit', 'amit@mail.com', CURRENT_TIMESTAMP);
+insert into customers (name, email, created_at) values ('Anmol', 'anmol@mail.com', CURRENT_TIMESTAMP);
+insert into customers (name, email, created_at) values ('Rohan', 'rohan@mail.com', CURRENT_TIMESTAMP);
