@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "customers")
 @Setter
@@ -18,11 +20,9 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_id_generator")
     @SequenceGenerator(name = "customer_id_generator", sequenceName = "customer_id_seq")
     private Long id;
-
     @Column(nullable = false)
     private String name;
-
     @Column(nullable = false, unique = true)
     private String email;
-
+    private Instant createdAt;
 }

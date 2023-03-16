@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.time.Instant;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -36,8 +37,8 @@ class CustomerControllerTest {
     @Test
     void shouldGetAllCustomers() {
         List<Customer> customers = List.of(
-                new Customer(null, "Jeetu", "jeetu@mail.com"),
-                new Customer(null, "Mahadev", "mahadev@mail.com")
+                new Customer(null, "Jeetu", "jeetu@mail.com", Instant.now()),
+                new Customer(null, "Mahadev", "mahadev@mail.com", Instant.now())
         );
         customerRepository.saveAll(customers);
 
