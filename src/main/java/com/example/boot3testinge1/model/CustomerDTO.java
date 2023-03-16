@@ -1,35 +1,19 @@
 package com.example.boot3testinge1.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.Page;
 
-import java.util.List;
+import java.time.Instant;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerDTO {
-    private List<Customer> data;
-    private long totalElements;
-    private int totalPages;
-    private int currentPage;
-    @JsonProperty("isFirst")
-    private boolean isFirst;
-    @JsonProperty("isLast")
-    private boolean isLast;
-    private boolean hasNext;
-    private boolean hasPrevious;
-
-    public CustomerDTO(Page<Customer> customerPage) {
-        this.setData(customerPage.getContent());
-        this.setTotalElements(customerPage.getTotalElements());
-        this.setTotalPages(customerPage.getTotalPages());
-        this.setCurrentPage(customerPage.getNumber() + 1);
-        this.setFirst(customerPage.isFirst());
-        this.setLast(customerPage.isLast());
-        this.setHasNext(customerPage.hasNext());
-        this.setHasPrevious(customerPage.hasPrevious());
-    }
-
+    private Long id;
+    private String name;
+    private String email;
+    private Instant createdAt;
 }
