@@ -17,4 +17,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             where lower(c.name) like lower(concat('%', :query, '%'))
             """)
     Page<CustomerDTO> searchCustomers(String query, Pageable pageable);
+
 }
